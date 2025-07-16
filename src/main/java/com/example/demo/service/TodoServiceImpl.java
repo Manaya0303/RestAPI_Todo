@@ -1,0 +1,28 @@
+package com.example.demo.service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.Task;
+import com.example.demo.repository.TodoRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@Service
+@RequiredArgsConstructor
+public class TodoServiceImpl implements TodoService {
+	
+	private final TodoRepository repository;
+
+	@Override
+	public List<Task> getAllTasks() {
+		
+		List<Task> allTasks = new ArrayList<>();
+		repository.findAll().forEach(allTasks::add);
+		
+		return allTasks;
+	}
+
+}
