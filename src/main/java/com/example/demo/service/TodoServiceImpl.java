@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,18 @@ public class TodoServiceImpl implements TodoService {
 		repository.findAll().forEach(allTasks::add);
 		
 		return allTasks;
+	}
+
+	@Override
+	public Optional<Task> getTask(Long taskId) {
+		
+		return repository.findById(taskId);
+	}
+
+	@Override
+	public void addTask(Task task) {
+		
+		repository.save(task);
 	}
 
 }
