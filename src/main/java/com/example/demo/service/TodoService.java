@@ -13,4 +13,6 @@ public interface TodoService {
 	
 	void addTask(Task task);
 	
+	void deleteTask(Long taskId);
+	
 }

@@ -38,4 +38,10 @@ public class TodoServiceImpl implements TodoService {
 		repository.save(task);
 	}
 
+	@Override
+	public void deleteTask(Long taskId) {
+		
+		repository.deleteById(taskId);
+	}
+
 }

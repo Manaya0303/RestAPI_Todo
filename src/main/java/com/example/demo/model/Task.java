@@ -42,7 +42,8 @@ public class Task {
 	private String place;
 	
 	@CreatedDate
-	@Column(updatable = false, nullable = false)
+	@Column(updatable = false)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Tokyo")
 	private Timestamp registeredDate;
 	
 	@Basic(optional = false)

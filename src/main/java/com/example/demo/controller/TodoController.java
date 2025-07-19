@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TodoController {
 	
-	private TodoService todoService;
+	private final TodoService todoService;
 	
 	@GetMapping("/todo")
 	public List<Task> getAllTodo() {
@@ -36,6 +37,12 @@ public class TodoController {
 	@PostMapping("/todo")
 	public void addTask(@RequestBody Task task) {
 		
+		todoService.addTask(task);
 	}
 
+	@DeleteMapping("/todo/{taskId}")
+	public void deleteTask(@PathVariable ("taskId") Long taskId) {
+		
+		todoService.deleteTask(taskId);
+	}
 }
