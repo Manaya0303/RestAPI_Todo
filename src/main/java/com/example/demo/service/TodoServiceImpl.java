@@ -44,4 +44,23 @@ public class TodoServiceImpl implements TodoService {
 		repository.deleteById(taskId);
 	}
 
+	@Override
+	public void editTask(Long taskId, Task task) {
+		
+		Optional<Task> existingTask = repository.findById(taskId);
+		
+		if(existingTask.isPresent()) {
+			Task taskToUpdate = existingTask.get();
+			taskToUpdate.setTitle(task.getTitle());
+			taskToUpdate.setContent(task.getContent());
+			taskToUpdate.setNotes(task.getNotes());
+			taskToUpdate.setLimitDate(task.getLimitDate());
+			taskToUpdate.setPlace(task.getPlace());
+			
+			repository.save(taskToUpdate);
+		}else {
+			throw new RuntimeException("タスクが見つかりません。");
+		}
+	}
+
 }
