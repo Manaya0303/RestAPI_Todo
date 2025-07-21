@@ -63,4 +63,21 @@ public class TodoServiceImpl implements TodoService {
 		}
 	}
 
+	@Override
+	public void finishTask(Long taskId, Task task) {
+		
+		Optional<Task> existingTask = repository.findById(taskId);
+		
+		if(existingTask.isPresent()) {
+			Task taskToFinish = existingTask.get();
+			taskToFinish.setFinishStatus(true);
+			
+			repository.save(taskToFinish);
+		}else {
+			throw new RuntimeException("タスクが見つかりません。");
+		}
+		
+		
+	}
+
 }

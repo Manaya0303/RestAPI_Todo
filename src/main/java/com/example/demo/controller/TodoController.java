@@ -53,4 +53,11 @@ public class TodoController {
 		
 		todoService.editTask(taskId, task);
 	}
+	
+	@PutMapping("/todo/{taskId}/finish")
+	public void finishTask(@RequestBody Task task,
+			@PathVariable ("taskId") Long taskId) {
+		
+		todoService.finishTask(taskId, task);
+	}
 }
