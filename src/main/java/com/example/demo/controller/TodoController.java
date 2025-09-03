@@ -17,6 +17,7 @@ import com.example.demo.service.TodoService;
 
 import lombok.RequiredArgsConstructor;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequiredArgsConstructor
 public class TodoController {
