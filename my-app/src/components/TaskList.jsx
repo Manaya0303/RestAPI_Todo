@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { HStack, IconButton, StackDivider, VStack, Text, Heading } from "@chakra-ui/react";
+import { SiCheckmarx } from "react-icons/si";
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
@@ -27,21 +29,37 @@ const TaskList = () => {
     };
 
     return (
-        <ul>
+        <VStack
+        divider={<StackDivider />}
+        borderColor="cyan.50"
+        borderWidth="1px"
+        borderRadius="5px"
+        p={6}
+        alignItems="start"
+        backgroundColor="teal.50"
+        >
             {tasks
                 .filter(task => !task.finishStatus)
                 .map(task => (
-                    <li key={task.taskId}>
-                        <h3>タイトル：{task.title}</h3>
-                        <p>内容：{task.content}</p>
-                        <p>メモ：{task.notes}</p>
-                        <p>期限：{task.limitDate}</p>
-                        <p>場所：{task.place}</p>
-                        <p>作成日：{new Date(task.registeredDate).toLocaleDateString()}</p>
-                        <button onClick={() => finishTask(task.taskId)}>完了</button>
-                    </li>
+                    <VStack 
+                    key={task.taskId}
+                    spacing="5"
+                    w="full"
+                    mx="auto"
+                    >
+                        <Heading size="md">title:{task.title}</Heading>
+                        <Text textAlign="center">content:{task.content}</Text>
+                        <Text textAlign="center">limit:{task.limitDate}</Text>
+                        <IconButton 
+                            onClick={() => finishTask(task.taskId)}
+                            icon={<SiCheckmarx />}
+                            isRound
+                            bgColor="gray.500"
+                            opacity="0.8"
+                        ></IconButton>
+                    </VStack>
             ))}
-        </ul>
+        </VStack>
     )
 }
 
