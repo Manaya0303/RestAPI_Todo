@@ -33,11 +33,23 @@ export const TaskDetail = ({ taskId }) => {
                 />
         </Tooltip>
 
-            <Modal isOpen={isOpen} onClose={onClose} isCentered>
-                <ModalOverlay />
-                <ModalContent>
+            <Modal 
+                isOpen={isOpen} 
+                onClose={onClose} 
+                isCentered 
+                size="lg"
+                motionPreset="slideInBottom"
+            >
+                <ModalOverlay bg="blackAlpha.400" backdropFilter="blur(4px)" />
+                <ModalContent
+                    borderRadius="2xl"
+                    boxShadow="2xl"
+                    overflow="hidden"
+                    maxW={{ base: "90vw", md: "720px"}}
+                >
                     <ModalCloseButton />
-                    <ModalBody>
+
+                    <ModalBody pb={2} >
                         {loading && <Spinner />}
                         {taskDetail && (
                             <>

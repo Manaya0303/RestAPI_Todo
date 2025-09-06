@@ -66,17 +66,19 @@ const TaskList = () => {
                             <Text textAlign="center">Content:{task.content}</Text>
                             <Text textAlign="center">Limit:{task.limitDate}</Text>
                             <Box>
-                            <Tooltip label="完了" placement="top">
-                                <IconButton 
-                                    onClick={() => finishTask(task.taskId)}
-                                    icon={ <LuSquareCheckBig /> }
-                                    isRound
-                                    bgColor="gray.100"
-                                    opacity="0.8"
-                                    aria-label="完了ボタン"
-                                ></IconButton>
-                            </Tooltip>
-                            <TaskDetail taskId={task.taskId} />
+                                <Box mt={3} display="flex" justifyContent="flex-end" gap={2}>
+                                    <TaskDetail taskId={task.taskId} />
+                                    <Tooltip label="完了" placement="top">
+                                        <IconButton 
+                                            onClick={() => finishTask(task.taskId)}
+                                            icon={ <LuSquareCheckBig /> }
+                                            isRound
+                                            bgColor="gray.100"
+                                            opacity="0.8"
+                                            aria-label="完了ボタン"
+                                        ></IconButton>
+                                    </Tooltip>
+                                </Box>
                             </Box>
                         </Box>
                 ))}
