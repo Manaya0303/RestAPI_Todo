@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { IconButton, VStack, Text, Heading, Box, SimpleGrid, Tooltip } from "@chakra-ui/react";
+import { IconButton, VStack, Text, Heading, Box, SimpleGrid, Tooltip, useDisclosure } from "@chakra-ui/react";
 import { LuSquareCheckBig } from "react-icons/lu";
 import { TiPin } from "react-icons/ti";
 import { TaskDetail } from "./TaskDetail";
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [selectedTaskId, setSelectedTaskId] = useState(null);
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -29,6 +31,11 @@ const TaskList = () => {
             console.error(err);
         }
     };
+
+    const openTaskDetail = (taskId) => {
+        setSelectedTaskId(taskId);
+        onOpen();
+    }
 
     return (
         <VStack
@@ -55,9 +62,17 @@ const TaskList = () => {
                             boxShadow="lg"
                             w="250px"
                             h="150px"
-                            _hover={{ transform: "scale(1.02) rotate(-1deg)", boxShadow: "2xl"}}
+                            _hover={{ transform: "scale(1.02) rotate(-1deg)", boxShadow: "2xl", cursor: "pointer" }}
                             transition="all 0.2s"
                             position="relative"
+                            onClick={() => openTaskDetail(task.taskId)}
+                            role="button"
+                            tabIndex={0}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault(); openTaskDetail(task.taskId);
+                                }
+                            }}
                         >
                             <Box position="absolute" top="6px" right="6px" color="red.500" >
                                 <TiPin size={18} />
@@ -67,7 +82,6 @@ const TaskList = () => {
                             <Text textAlign="center">Limit:{task.limitDate}</Text>
                             <Box>
                                 <Box mt={3} display="flex" justifyContent="flex-end" gap={2}>
-                                    <TaskDetail taskId={task.taskId} />
                                     <Tooltip label="完了" placement="top">
                                         <IconButton 
                                             onClick={() => finishTask(task.taskId)}
@@ -83,6 +97,7 @@ const TaskList = () => {
                         </Box>
                 ))}
             </SimpleGrid>
+            <TaskDetail isOpen={isOpen} onClose={onClose} taskId={selectedTaskId} />
         </VStack>
     )
 }

@@ -1,38 +1,24 @@
-import { IconButton, Modal, ModalBody, ModalCloseButton, ModalContent, ModalOverlay, Spinner, Text, Tooltip, useDisclosure } from "@chakra-ui/react"
-import { LuEllipsis } from "react-icons/lu";
-import { useState } from "react";
+import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Spinner, Text, } from "@chakra-ui/react"
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 
-export const TaskDetail = ({ taskId }) => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+export const TaskDetail = ({ isOpen, onClose, taskId }) => {
     const [taskDetail, setTaskDetail] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const handleOpen = async () => {
-        onOpen();
+    useEffect(() => {
+        if (!isOpen || !taskId) return;
         setLoading(true);
-        try{
-            const res = await axios.get(`http://localhost:8080/todo/${taskId}`);
-            setTaskDetail(res.data);
-        } catch (err) {
-            console.error(err);
-        } finally {
-            setLoading(false);
-        }
-    };
+        setTaskDetail(null);
+        axios.get(`http://localhost:8080/todo/${taskId}`)
+            .then(res => setTaskDetail(res.data))
+            .catch(err => console.error(err))
+            .finally(() => setLoading(false));
+    }, [isOpen, taskId]);
 
     return (
         <>
-        <Tooltip label="詳細" placement="top">
-            <IconButton 
-                onClick={handleOpen} 
-                icon={<LuEllipsis />}
-                isRound
-                aria-label="詳細"
-                />
-        </Tooltip>
-
             <Modal 
                 isOpen={isOpen} 
                 onClose={onClose} 
@@ -47,6 +33,7 @@ export const TaskDetail = ({ taskId }) => {
                     overflow="hidden"
                     maxW={{ base: "90vw", md: "720px"}}
                 >
+                    <ModalHeader>{taskDetail?.title ?? "タスク詳細"}</ModalHeader>
                     <ModalCloseButton />
 
                     <ModalBody pb={2} >
