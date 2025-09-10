@@ -5,8 +5,6 @@ import TaskCard from "./TaskCard";
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [selectedTaskId, setSelectedTaskId] = useState(null);
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -29,11 +27,6 @@ const TaskList = () => {
             console.error(err);
         }
     };
-
-    const openTaskDetail = (taskId) => {
-        setSelectedTaskId(taskId);
-        onOpen();
-    }
 
     return (
         <VStack
