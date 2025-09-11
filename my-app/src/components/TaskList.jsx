@@ -1,12 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { VStack, SimpleGrid, useDisclosure } from "@chakra-ui/react";
+import { VStack, SimpleGrid, } from "@chakra-ui/react";
 import TaskCard from "./TaskCard";
+import TaskRegist from "./TaskRegist";
 
 const TaskList = () => {
     const [tasks, setTasks] = useState([]);
+    
+    const handleRegisted = (newTask) => {
+        setTasks((prev) => [newTask, ...prev]);
+    }; 
+
 
     useEffect(() => {
+
         const fetchTasks = async () => {
             try {
                 const res = await axios.get("http://localhost:8080/todo");
@@ -50,6 +57,7 @@ const TaskList = () => {
                         />
                 ))}
             </SimpleGrid>
+            <TaskRegist onCreated={handleRegisted} />
             
         </VStack>
     )
