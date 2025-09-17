@@ -37,7 +37,7 @@ export default function TaskRegist({ onCreated }) {
         try {
             const res = await axios.post("http://localhost:8080/todo", form);
             onCreated?.(res.data);
-            onClose();
+            closeWithReset();
             setForm({ title: "", content: "", limitDate: "", place: "", notes: "" });
         } catch (err) {
             console.error(err);
@@ -141,7 +141,7 @@ export default function TaskRegist({ onCreated }) {
                         </DrawerBody>
 
                         <DrawerFooter>
-                            <Button variant="ghost" mr={3} onClick={onClose}>
+                            <Button variant="ghost" mr={3} onClick={closeWithReset}>
                                 キャンセル
                             </Button>
                             <Button colorScheme="teal" type="submit" isLoading={submitting} isDisabled={isTitleError}>
