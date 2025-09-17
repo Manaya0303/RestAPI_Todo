@@ -17,6 +17,6 @@ public interface TodoService {
 	
 	void editTask(Long taskId, Task task);
 	
-	void finishTask(Long taskId, Task task);
+	void finishTask(Long taskId);
 	
 }

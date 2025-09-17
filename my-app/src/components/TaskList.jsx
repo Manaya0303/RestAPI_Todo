@@ -28,8 +28,8 @@ const TaskList = () => {
 
     const finishTask = async (taskId) => {
         try {
-            await axios.put(`http://localhost:8080/todo/${taskId}/finish`)
-            setTasks(tasks.filter((task) => task.taskId !== taskId));
+            await axios.put(`http://localhost:8080/todo/${taskId}/finish`);
+            setTasks(tasks.filter( t => t.taskId !== taskId));
         } catch (err) {
             console.error(err);
         }

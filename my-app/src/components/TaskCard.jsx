@@ -83,10 +83,16 @@ export default function TaskCard({ task, onFinish }) {
                         <Text textAlign="center">Limit:{task.limitDate}</Text>
 
                         <Box>
-                            <Box mt={3} display="flex" justifyContent="flex-end" gap={2}>
+                            <Box 
+                                mt={3} 
+                                display="flex" 
+                                justifyContent="flex-end" gap={2}  
+                                onClick={(e) => e.stopPropagation()}
+                                onMouseDown={(e) => e.stopPropagation()}
+                            >
                                 <Tooltip label="完了" placement="top">
                                     <IconButton 
-                                        onClick={(e) => { e.stopPropagation(); onFinish(task.taskId); }}
+                                        onClick={() => onFinish(task.taskId) }
                                         icon={ <LuSquareCheckBig /> }
                                         isRound
                                         bgColor="gray.100"

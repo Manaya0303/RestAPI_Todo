@@ -64,7 +64,7 @@ public class TodoServiceImpl implements TodoService {
 	}
 
 	@Override
-	public void finishTask(Long taskId, Task task) {
+	public void finishTask(Long taskId) {
 		
 		Optional<Task> existingTask = repository.findById(taskId);
 		
