@@ -35,6 +35,15 @@ const TaskList = () => {
         }
     };
 
+    const deleteTask = async (taskId) => {
+        try{
+            await axios.delete(`http://localhost:8080/todo/${taskId}`);
+            setTasks(prev => prev.filter(t => t.taskId !== taskId));
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
     return (
         <VStack
         borderColor="cyan.50"
@@ -54,6 +63,7 @@ const TaskList = () => {
                             key={task.taskId}
                             task={task}
                             onFinish={finishTask}
+                            onDelete={deleteTask}
                         />
                 ))}
             </SimpleGrid>

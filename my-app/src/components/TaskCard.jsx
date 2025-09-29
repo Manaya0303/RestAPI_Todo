@@ -4,7 +4,7 @@ import { LuSquareCheckBig } from "react-icons/lu";
 import { TiPin } from "react-icons/ti";
 import { TaskDetail } from "./TaskDetail";
 
-export default function TaskCard({ task, onFinish }) {
+export default function TaskCard({ task, onFinish, onDelete }) {
 
     const [ disableCardTip, setDisableCardTip ] = useState(false);
     const [ flipped, setFlipped ] = useState(false);
@@ -119,8 +119,13 @@ export default function TaskCard({ task, onFinish }) {
                 </Box>
             </Box>
 
-            <TaskDetail isOpen={isOpen} onClose={handleClose} taskId={task.taskId} />
+            <TaskDetail 
+                isOpen={isOpen} 
+                onClose={handleClose} 
+                taskId={task.taskId} 
+                onDelete={onDelete}
+            />
         </>
-    )
+    );
 
 }

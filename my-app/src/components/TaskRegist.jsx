@@ -18,7 +18,7 @@ export default function TaskRegist({ onCreated }) {
     });
     const [submitting, setSubmitting] = useState(false);
     const isTitleError = !form.title.trim();
-    const showTitleError = isTitleError && (touched.title || submitted);
+    const showTitleError = (touched.title || submitted) && isTitleError;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -57,6 +57,12 @@ export default function TaskRegist({ onCreated }) {
         closeDrawer();
     }
 
+    const openFresh = () => {
+        setForm({ title:"", content:"", limitDate:"", place:"", notes:"" });
+        setTouched({ title:false });
+        setSubmitted(false);
+        onOpen();
+    }
     return (
         <>
             <Tooltip label="登録" placement="left">
@@ -70,7 +76,7 @@ export default function TaskRegist({ onCreated }) {
                     size="lg"
                     aria-label="登録"
                     icon={<CgAddR />}
-                    onClick={onOpen}
+                    onClick={openFresh}
                 />
             </Tooltip>
 
@@ -99,7 +105,9 @@ export default function TaskRegist({ onCreated }) {
                                         onBlur={handleBlur}
                                         placeholder="卵を買う"
                                     />
-                                    <FormErrorMessage>タイトルは必須です</FormErrorMessage>
+                                    {showTitleError && (
+                                        <FormErrorMessage>タイトルは必須です</FormErrorMessage>
+                                    )}
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel>Content</FormLabel>

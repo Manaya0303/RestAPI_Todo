@@ -1,9 +1,10 @@
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Spinner, Text, } from "@chakra-ui/react"
 import { useState, useEffect } from "react";
 import axios from "axios";
+import TaskDelete from "./TaskDelete";
 
 
-export const TaskDetail = ({ isOpen, onClose, taskId }) => {
+export const TaskDetail = ({ isOpen, onClose, taskId, onDelete }) => {
     const [taskDetail, setTaskDetail] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -49,6 +50,8 @@ export const TaskDetail = ({ isOpen, onClose, taskId }) => {
                             </>
                         )}
                     </ModalBody>
+                    <TaskDelete onDelete={onDelete} taskId={taskId}/>
+
                 </ModalContent>
             </Modal>
         </>
