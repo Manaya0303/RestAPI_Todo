@@ -64,5 +64,3 @@ export default function TaskDelete ({ taskId, onDelete }) {
         </>
     );
 }
-
-

@@ -127,5 +127,4 @@ export default function TaskCard({ task, onFinish, onDelete }) {
             />
         </>
     );
-
 }
